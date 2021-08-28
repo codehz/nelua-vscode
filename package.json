@@ -2,13 +2,20 @@
     "name": "nelua",
     "displayName": "nelua",
     "description": "Nelua programming language syntax",
+    "author": {
+        "name": "CodeHz"
+    },
     "version": "0.0.1",
     "engines": {
-        "vscode": "^1.31.0"
+        "vscode": "^1.52.0"
     },
     "categories": [
         "Programming Languages"
     ],
+	"activationEvents": [
+		"onLanguage:nelua"
+	],
+    "main": "client/out/extension.js",
     "contributes": {
         "markdown.previewScripts": ["./highlightjs-nelua.js"],
         "languages": [{
@@ -30,6 +37,45 @@
             "embeddedLanguages": {
                 "meta.embedded.block.nelua": "nelua"
             }
-        }]
-    }
+        }],
+        "configuration": {
+            "title": "Nelua configuration",
+            "properties": {
+                "nelua.path": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "nelua",
+                    "description": "nelua cli path"
+                },
+                "nelua.lsp.enabled": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "enable nelua-lsp support"
+                },
+                "nelua.lsp.path": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "nelua-lsp path"
+                }
+            }
+        }
+    },
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh"
+	},
+	"devDependencies": {
+		"@types/mocha": "^8.2.2",
+		"@types/node": "^12.12.0",
+		"@typescript-eslint/eslint-plugin": "^4.23.0",
+		"@typescript-eslint/parser": "^4.23.0",
+		"eslint": "^7.26.0",
+		"mocha": "^8.3.2",
+		"typescript": "^4.3.5"
+	}
 }
