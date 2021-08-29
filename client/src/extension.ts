@@ -21,7 +21,6 @@ export function activate(context: ExtensionContext) {
   if (!config.get<boolean>("lsp.enabled")) return;
   const lsp_path = config.get<string>("lsp.path");
   const channel = window.createOutputChannel("Nelua: LSP");
-  channel.show(true);
   context.subscriptions.push(channel);
 
   if (lsp_path == "") {
